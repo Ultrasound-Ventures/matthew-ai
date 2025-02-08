@@ -1,5 +1,5 @@
 
-# Maja Reporting Tool
+# Majya Reporting Tool
 A safe and anonymous platform for reporting incidents of racism, built with React, TypeScript, and 11Labs voice AI.
 ![Maja.cyou Logo](public/favicon.svg)
 
