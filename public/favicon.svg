@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Main circle representing unity -->
+  <circle cx="50" cy="50" r="45" fill="#4F46E5" opacity="0.1"/>
+  
+  <!-- Intersecting circles representing diversity and connection -->
+  <circle cx="40" cy="50" r="25" fill="#4F46E5" opacity="0.7"/>
+  <circle cx="60" cy="50" r="25" fill="#818CF8" opacity="0.7"/>
+  
+  <!-- Speech bubble overlay symbolizing reporting/voice -->
+  <path d="M50 25 L70 25 Q80 25 80 35 L80 55 Q80 65 70 65 L60 65 L55 75 L50 65 L30 65 Q20 65 20 55 L20 35 Q20 25 30 25Z" 
+        fill="white" opacity="0.9"/>
+  
+  <!-- Heart symbol representing care and support -->
+  <path d="M50 45 L45 40 Q40 35 35 40 Q30 45 35 50 L50 65 L65 50 Q70 45 65 40 Q60 35 55 40 Z" 
+        fill="#4F46E5"/>
+</svg>
