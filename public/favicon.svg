@@ -1,16 +1,38 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <!-- Main circle representing unity -->
-  <circle cx="50" cy="50" r="45" fill="#4F46E5" opacity="0.1"/>
+<svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+  <!-- Lightbulb -->
+  <defs>
+    <radialGradient id="bulbGlow" cx="50%" cy="40%" r="50%" fx="50%" fy="40%">
+      <stop offset="0%" stop-color="#ffffd0" />
+      <stop offset="100%" stop-color="#ffcc00" />
+    </radialGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
   
-  <!-- Intersecting circles representing diversity and connection -->
-  <circle cx="40" cy="50" r="25" fill="#4F46E5" opacity="0.7"/>
-  <circle cx="60" cy="50" r="25" fill="#818CF8" opacity="0.7"/>
+  <!-- Glow effect -->
+  <circle cx="50" cy="40" r="30" fill="url(#bulbGlow)" opacity="0.3" filter="url(#glow)" />
   
-  <!-- Speech bubble overlay symbolizing reporting/voice -->
-  <path d="M50 25 L70 25 Q80 25 80 35 L80 55 Q80 65 70 65 L60 65 L55 75 L50 65 L30 65 Q20 65 20 55 L20 35 Q20 25 30 25Z" 
-        fill="white" opacity="0.9"/>
+  <!-- Bulb glass -->
+  <path d="M30,40 a20,25 0 1,0 40,0 a20,30 0 1,0 -40,0" fill="#ffcc00" />
+  <ellipse cx="50" cy="40" rx="20" ry="25" fill="url(#bulbGlow)" />
   
-  <!-- Heart symbol representing care and support -->
-  <path d="M50 45 L45 40 Q40 35 35 40 Q30 45 35 50 L50 65 L65 50 Q70 45 65 40 Q60 35 55 40 Z" 
-        fill="#4F46E5"/>
+  <!-- Bulb base -->
+  <rect x="42" y="65" width="16" height="5" rx="1" fill="#ddd" />
+  <rect x="44" y="70" width="12" height="5" rx="1" fill="#bbb" />
+  <rect x="46" y="75" width="8" height="5" rx="1" fill="#999" />
+  
+  <!-- Filaments -->
+  <line x1="40" y1="40" x2="60" y2="40" stroke="#ff9900" stroke-width="1.5" />
+  <line x1="45" y1="35" x2="55" y2="45" stroke="#ff9900" stroke-width="1.5" />
+  <line x1="45" y1="45" x2="55" y2="35" stroke="#ff9900" stroke-width="1.5" />
+  
+  <!-- Letter M -->
+  <path d="M36,30 L45,50 L50,40 L55,50 L64,30" 
+        stroke="#6419E6" 
+        stroke-width="5" 
+        stroke-linecap="round" 
+        stroke-linejoin="round" 
+        fill="none" />
 </svg>

@@ -5,12 +5,24 @@
 @tailwind utilities;
 
 @layer base {
-  html {
+  html, body {
     font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
   }
   
   body {
-    @apply bg-base-100 text-base-content;
+    @apply bg-matthewDark text-matthewLight;
+  }
+
+  #root {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
   }
 }
 
@@ -36,4 +48,63 @@
 
 .animate-fade-in {
   animation: fadeIn 0.6s ease-out forwards;
+}
+
+/* Fix for color input in dark theme */
+input[type="color"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+input[type="color"]::-webkit-color-swatch {
+  border: 2px solid #333;
+  border-radius: 8px;
+}
+
+/* Ensure full width layout */
+.container-fluid {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  width: 100vw !important;
+  max-width: 100vw !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow-x: hidden !important;
+}
+
+.full-bleed {
+  width: 100vw !important;
+  max-width: 100vw !important;
+  box-sizing: border-box !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* Force containers to be full width */
+.container, 
+.container-fluid, 
+.max-w-4xl, 
+.max-w-7xl {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+/* Add padding inside content areas instead of margin */
+.content-area {
+  padding: 1rem !important;
 }

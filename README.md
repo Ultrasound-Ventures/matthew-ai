@@ -1,234 +1,180 @@
+# Matthew AI LED Controller
 
-# Majya Reporting Tool
-A safe and anonymous platform for reporting incidents of racism, built with React, TypeScript, and 11Labs voice AI.
-![Maja.cyou Logo](public/favicon.svg)
+![Matthew AI Logo](public/favicon.svg)
+
+A smart LED controller for WS2813 LED strips with AI voice commands, built with ESP32, React, TypeScript, and Azure OpenAI services.
 
 ## Overview
-Maja provides a secure, anonymous space for individuals to report incidents of racism. Using voice AI technology, users can verbally share their experiences in a natural, comfortable way. The platform is designed to be accessible, supportive, and user-focused.
+
+Matthew AI provides an intuitive web interface to control your LED strip with voice commands and visual controls. Using Azure OpenAI for natural language understanding, users can control colors, brightness, animations, and more with simple voice instructions.
+
+## Screenshots
+
+### Web Interface
+![Matthew AI Web Interface](screenshots/Bildschirmfoto 2025-03-20 um 01.33.45.png)
+
+### ESP32 Serial Monitor Output
+![ESP32 Serial Monitor](screenshots/Bildschirmfoto 2025-03-20 um 01.31.50.png)
 
 ## Features
-- 🎤 Voice-enabled reporting with 11Labs AI
-- 🔒 Anonymous submission system
-- 💬 Natural conversation interface
-- 📊 Data insights and trend analysis
-- 🌐 Accessible web interface
-- 🛡️ Privacy-first design
+
+- ✅ Local network LED control - Control your LED strips from any device on your local network
+- ✅ AI Integration - Use natural language to control your lights with Azure OpenAI
+- ✅ Voice Commands - Speak to your lights for hands-free control
+- ✅ Multiple animations - Choose from various animation patterns
+- ✅ Color presets - Quick access to common colors
+- ✅ Responsive design - Works on desktops, tablets, and mobile devices
 
 ## Tech Stack
+
+### Frontend
 - React 18
 - TypeScript
 - Vite
 - TailwindCSS
-- DaisyUI
-- 11Labs Voice AI
-- Firebase
+- Azure OpenAI Services
+- Web Speech API
+
+### Backend (ESP32)
+- Arduino
+- ESP Async WebServer
+- ArduinoJson
+- Adafruit NeoPixel
 
 ## Getting Started
-### Prerequisites
-- Node.js (v18 or higher)
-- npm or yarn
-- Firebase account
-- 11Labs API key
 
-### Installation
-1. Clone the repository
-   ```bash
-   git clone https://github.com/Ultrasound-Ventures/majya-reporting-tool.git
-   cd majya-reporting-tool
-   ```
+### Hardware Requirements
 
-2. Install dependencies
+- ESP32 or XIAO ESP32-C3 board
+- WS2813 LED strip (or compatible)
+- 5V power supply (appropriate for your LED strip length)
+- USB cable for initial programming
+
+### Setting Up the Arduino Code
+
+1. **Install Arduino IDE**
+   - Download and install the [Arduino IDE](https://www.arduino.cc/en/software)
+
+2. **Install Required Libraries**
+   - In Arduino IDE, go to Tools > Manage Libraries and install:
+     - Adafruit NeoPixel
+     - ESPAsyncWebServer
+     - AsyncTCP
+     - ArduinoJson (version 6.x)
+
+3. **Configure the Arduino Code**
+   - Navigate to the `Arduino` folder in your project
+   - Open `Matthew_AI.ino` in Arduino IDE
+   - Update the WiFi credentials with your network information:
+     ```cpp
+     const char* ssid = "YourWiFiName";
+     const char* password = "YourWiFiPassword";
+     ```
+   - Update the LED_PIN and LED_COUNT to match your setup:
+     ```cpp
+     #define LED_PIN    D0  // Change to actual pin if different
+     #define LED_COUNT  30  // Number of LEDs in your strip
+     ```
+
+4. **Upload the Code**
+   - Connect your ESP32 board to your computer via USB
+   - Select the correct board and port in Arduino IDE
+     - For XIAO ESP32-C3: Select "ESP32C3 Dev Module" under Tools > Board
+   - Click the Upload button (arrow icon)
+   - Open the Serial Monitor (Tools > Serial Monitor) set to 115200 baud
+   - Note the IP address displayed after successful connection
+
+### Setting Up the Web Interface
+
+1. **Prerequisites**
+   - Node.js (v16 or higher)
+   - npm or yarn
+
+2. **Environment Setup**
+   - Create a `.env` file in the project root with your Azure OpenAI credentials:
+     ```env
+     VITE_AZURE_OPENAI_ENDPOINT=https://your-endpoint.openai.azure.com
+     VITE_AZURE_OPENAI_API_KEY=your-api-key
+     VITE_AZURE_OPENAI_API_VERSION=2024-05-01-preview
+     VITE_LED_SYSTEM_PROMPT="You are a lighting control assistant. Parse natural language commands into simple lighting instructions. Only respond with JSON in this format: {\"action\": \"[color|animation|brightness|speed]\", \"value\": \"[value]\"}. For colors, use hex values. For animations, use numbers 0-3 (0=off, 1=colorWipe, 2=rainbow, 3=theaterChase). For brightness, use 0-255. For speed, use 5-200."
+     ```
+
+3. **Installation**
    ```bash
+   # Clone the repository
+   git clone https://github.com/Ultrasound-Ventures/matthew-ai.git
+   cd matthew-ai
+
+   # Install dependencies
    npm install
    ```
 
-3. Create a `.env` file in the root directory:
-   ```env
-   VITE_ELEVEN_LABS_API_KEY=your_api_key_here
-   VITE_ELEVEN_LABS_VOICE_ID=7dORAvmS6YAiBpft5lIr
-   VITE_FIREBASE_API_KEY=your_firebase_api_key
-   VITE_FIREBASE_AUTH_DOMAIN=your_domain.firebaseapp.com
-   VITE_FIREBASE_PROJECT_ID=your_project_id
-   VITE_FIREBASE_STORAGE_BUCKET=your_storage_bucket
-   VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
-   VITE_FIREBASE_APP_ID=your_app_id
-   ```
-
-4. Start the development server
+4. **Start the Development Server**
    ```bash
    npm run dev
    ```
 
-## Project Structure
-```
-maja-reporting/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── assets/
-│   ├── components/
-│   │   ├── common/
-│   │   ├── layout/
-│   │   └── forms/
-│   ├── hooks/
-│   ├── pages/
-│   ├── services/
-│   ├── types/
-│   └── utils/
-└── package.json
-```
+5. **Access the Web Interface**
+   - Open your browser and navigate to `http://localhost:3001`
+   - In the connection panel, enter the IP address from your ESP32's Serial Monitor
+   - Click "Connect" to establish a connection with your LED controller
 
-## Setting Up Your Own 11 Labs AI Agent
-Maja Reporting Tool uses **11 Labs Voice AI** to power its empathetic AI assistant, Maya. Below are the steps to set up your own 11 Labs AI agent and configure it with the provided system prompt.
+## Usage
 
-### Step 1: Create an 11 Labs Account
-1. Visit the [11 Labs website](https://11labs.io) and sign up for an account.
-2. Once registered, navigate to the **API Keys** section in your dashboard.
-3. Generate a new API key and save it securely. You’ll need this key to authenticate your requests.
+### Web Interface
 
-### Step 2: Configure the System Prompt
-The system prompt defines how the AI assistant behaves. For Maja Reporting Tool, the system prompt is as follows:
+1. **Connect to your ESP32**
+   - Enter the IP address or click "Scan Network" to discover devices
+   - Click "Connect" to establish connection
 
-```plaintext
-You are Maya, an empathetic AI assistant for Maja.cyou's anonymous racism reporting system. Your role is to help individuals report incidents of racism safely and sensitively while providing emotional support.
+2. **Control LEDs**
+   - Use the brightness slider to adjust LED intensity
+   - Pick colors from the color wheel or preset buttons
+   - Select animations from the dropdown menu
+   - Adjust animation speed with the slider
+   - Click "Update LEDs" to apply changes
 
-Key Responsibilities:
-- Guide users through reporting incidents anonymously
-- Collect relevant details while maintaining privacy
-- Show empathy and understanding
-- Provide information about support services
-- Handle sensitive information with care
+3. **AI Voice Commands**
+   - Click the microphone button to speak a command
+   - Or type a command in the text box
+   - Example commands:
+     - "Turn the lights red"
+     - "Set brightness to maximum"
+     - "Start rainbow animation"
+     - "Make the lights dim and blue"
 
-When taking a report:
-1. Begin with a caring introduction and explain the anonymous nature of the service
-2. Ask if the incident happened to them or they witnessed it
-3. Gently gather key details about the incident:
-   - Type of racism/discrimination
-   - Location and approximate date
-   - Context (workplace, public space, online, etc.)
-   - Impact on the person
-4. Offer support resources if needed
-5. Provide a summary and explain next steps
+## Troubleshooting
 
-Core Guidelines:
-- Never push for identifying information
-- Allow the person to share at their own pace
-- Use supportive, non-judgmental language
-- Acknowledge the courage it takes to report
-- Respect cultural sensitivities
+### ESP32 Connection Issues
+- Ensure ESP32 and your computer are on the same network
+- Verify the IP address is correct in the connection panel
+- Check that your network allows device-to-device communication
+- Try accessing http://[ESP32-IP]/ directly in your browser to verify the server is running
 
-Response Style:
-- Maintain a calm, supportive tone
-- Use clear, simple language
-- Be patient and understanding
-- Acknowledge emotions when expressed
-- Provide reassurance about privacy
+### Voice Recognition Issues
+- Ensure your browser supports Web Speech API (Chrome recommended)
+- Allow microphone access when prompted
+- Speak clearly and at a normal pace
+- Try using the text input if voice recognition isn't working
 
-Key Phrases to Use:
-- "Thank you for coming forward"
-- "Your privacy is our priority"
-- "Take your time"
-- "I understand this may be difficult to discuss"
-- "Would you like information about support services?"
+### LED Strip Issues
+- Verify power connections (LEDs need sufficient power)
+- Check data pin connection between ESP32 and LED strip
+- Ensure LED_PIN and LED_COUNT are correctly set in the Arduino code
 
-Available Support Options:
-- Mental health resources
-- Legal information
-- Community support groups
-- Advocacy organizations
-- Crisis helplines
+## Roadmap
 
-If you need to clarify information, ask gently and explain why it's helpful for the report. Keep the focus on the person's wellbeing while gathering necessary details for accurate reporting.
-
-Remember that your primary role is to:
-1. Make people feel safe and heard
-2. Collect accurate information sensitively
-3. Maintain absolute privacy
-4. Connect people with support if needed
-5. Validate their experience without judgment
-
-The data collected will help track patterns of racism to create positive change, but the immediate priority is supporting the person making the report.
-```
-
-### Step 3: Create Your AI Agent
-1. In your 11 Labs dashboard, navigate to the **AI Agents** section.
-2. Click **Create New Agent**.
-3. Provide a name for your agent (e.g., "Maya").
-4. Paste the system prompt into the **System Prompt** field.
-5. Customize the voice settings if desired (e.g., select a calming and empathetic voice).
-6. Save your agent configuration.
-
-### Step 4: Integrate the AI Agent into Maja Reporting Tool
-1. Copy the **Voice ID** of your newly created agent from the 11 Labs dashboard.
-2. Add the following environment variables to your `.env` file:
-   ```env
-   VITE_ELEVEN_LABS_API_KEY=your_api_key_here
-   VITE_ELEVEN_LABS_VOICE_ID=your_voice_id_here
-   ```
-3. Restart your development server:
-   ```bash
-   npm run dev
-   ```
-
-### Step 5: Test the Integration
-1. Open the Maja Reporting Tool in your browser.
-2. Navigate to the reporting interface.
-3. Interact with the AI assistant (Maya) to ensure it behaves as expected based on the system prompt.
-
-## Tutorial: How the AI Assistant Works
-
-The AI assistant, Maya, is designed to guide users through the process of reporting incidents of racism. Here’s how it works:
-
-### 1. Introduction
-Maya begins by introducing itself and explaining the anonymous nature of the service:
-> "Hello, I’m Maya. I’m here to help you report an incident of racism safely and anonymously. Your privacy is our priority, and you can take your time sharing your experience."
-
-### 2. Gathering Information
-Maya asks questions to gather key details about the incident:
-- **Type of Incident**: "Can you describe what happened? Was it verbal, physical, or something else?"
-- **Location and Date**: "Where did this happen? Do you remember the approximate date?"
-- **Context**: "Was this at work, in a public space, or online?"
-- **Impact**: "How did this affect you or the person involved?"
-
-### 3. Offering Support
-Maya provides emotional support and offers resources:
-> "Thank you for sharing this with me. Would you like information about support services, such as mental health resources or advocacy organizations?"
-
-### 4. Summary and Next Steps
-Maya summarizes the information and explains what happens next:
-> "Here’s a summary of what you’ve shared: [summary]. This information will be used to track patterns of racism and create positive change. Thank you for your courage in coming forward."
-
-### Customizing the AI Assistant
-You can modify the system prompt to adjust Maya’s behavior. For example:
-- Change the tone to be more formal or informal.
-- Add specific phrases or responses tailored to your audience.
-- Include additional support options relevant to your region.
-
-## Additional Resources
-
-- [11 Labs Documentation](https://docs.11labs.io)
-- [React Documentation](https://reactjs.org)
-- [Firebase Documentation](https://firebase.google.com/docs)
-
-## Contributing
-We welcome contributions! Please read our [Contributing Guidelines](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
-
-### Development Process
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+See our [ROADMAP.md](ROADMAP.md) for planned features and enhancements.
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+This project is licensed under the MIT License.
 
 ## Acknowledgments
-- Built in partnership with Diversity Focus & Ultrasound Ventures Limited
-- We acknowledge all First Nations of this place we call Australia and recognise the many nations who have looked after Country for more than 60,000 years.
 
-## Support
-For support, please email [peter@ultrasound.vc](mailto:peter@ultrasound.vc) or create an issue in the repository.
+- Built with [Vite](https://vitejs.dev/) and [React](https://reactjs.org/)
+- LED control powered by [Adafruit NeoPixel](https://github.com/adafruit/Adafruit_NeoPixel)
+- AI functionality by [Azure OpenAI Services](https://azure.microsoft.com/en-us/services/cognitive-services/openai-service/)
 
 ---
-Made with ❤️ by [Ultrasound Ventures](https://ultrasound.vc) & [Diversity Focus](https://diversityfocus.com.au)
+Made with ❤️ by [Ultrasound Ventures Limited](https://github.com/Ultrasound-Ventures)

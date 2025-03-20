@@ -1,0 +1,115 @@
+/* Dashboard.css */
+
+/* Custom slider styling */
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 8px;
+    background: #e5e7eb;
+    border-radius: 8px;
+    outline: none;
+  }
+  
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #6419E6;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 0 3px rgba(100, 25, 230, 0.2);
+  }
+  
+  input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #6419E6;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease;
+  }
+  
+  input[type="range"]::-moz-range-thumb:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 0 3px rgba(100, 25, 230, 0.2);
+  }
+  
+  /* Custom color picker styling */
+  input[type="color"] {
+    -webkit-appearance: none;
+    appearance: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+  }
+  
+  input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+  }
+  
+  input[type="color"]::-webkit-color-swatch {
+    border: none;
+    border-radius: 8px;
+  }
+  
+  input[type="color"]::-moz-color-swatch {
+    border: none;
+    border-radius: 8px;
+  }
+  
+  /* Animation for status messages */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  @keyframes fadeOut {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(-10px); }
+  }
+  
+  .status-message {
+    animation: fadeIn 0.3s ease forwards;
+  }
+  
+  .status-message.hiding {
+    animation: fadeOut 0.3s ease forwards;
+  }
+  
+  /* Transition effects */
+  .control-panel {
+    transition: all 0.3s ease;
+  }
+  
+  .control-panel:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Pulse animation for connection status */
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+  
+  .connected {
+    animation: pulse 2s infinite;
+  }
+  
+  /* Color preset buttons hover effect */
+  .color-preset {
+    transition: all 0.2s ease;
+  }
+  
+  .color-preset:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 0 2px white, 0 0 0 4px currentColor;
+  }
